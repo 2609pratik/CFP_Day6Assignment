@@ -1,27 +1,27 @@
 package com.bridelabz.EmployeePayrollApp.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-
-import com.bridelabz.EmployeePayrollApp.entity.PayrollModel;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PayrollDTO {
-	
+	@Pattern(regexp="[A-Z]{1}[a-z]{2,}$",message = "invalid data")
 	private String profilePic;
-	@Pattern(regexp = "^[M,F]",message = "invalid")
+	@Pattern(regexp = "[M,F]{1}$",message = " invalid")
 	private String gender;
 	private String department;
-	@Pattern(regexp = "^[1-9,0]",message = "invalid")
+	@Min(value=1000,message = "value greater than 1000")
 	private long salary;
 	private LocalDate startDate = LocalDate.now();
+	@NotBlank(message = "cannoy be empty")
 	private String note;
-	public PayrollDTO(List<PayrollModel> data) {
+	public PayrollDTO(String profilePic, String gender,String department,long salary, LocalDate startDate,String note) {
 		super();
 		this.profilePic = profilePic;
 		this.gender = gender;
@@ -30,7 +30,5 @@ public class PayrollDTO {
 		this.startDate = startDate;
 		this.note = note;
 	}
-//	public PayrollDTO(List<PayrollModel> findAll) {
-//	}
-	
+
 }

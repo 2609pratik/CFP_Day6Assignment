@@ -11,19 +11,18 @@ import com.bridelabz.EmployeePayrollApp.entity.PayrollModel;
 import com.bridelabz.EmployeePayrollApp.repository.PayrollRepository;
 
 @Service
-public class PayrollService {
+public class PayrollService implements IPayrollService {
 
 	@Autowired
 	PayrollRepository repo;
-	public PayrollModel addEmp(PayrollDTO data) {
-	//	PayrollModel saveEmp = repo.save(data);
-		PayrollModel saveEmp = new PayrollModel(data); 
-		return saveEmp;
+	public List<PayrollModel> getAllEmp() {
+		return repo.findAll() ;
 	}
 	
-	public List<PayrollModel> getAllEmp() {
-		 
-		return repo.findAll() ;
+	public PayrollModel addEmp(PayrollDTO data) {
+		PayrollModel newEmp = new PayrollModel(data);
+		repo.save(newEmp);
+		return newEmp ;
 	}
 	
 	public PayrollModel getEmpById(int id) {
@@ -42,6 +41,11 @@ public class PayrollService {
 		existData.setProfilePic(data.getProfilePic());
 		existData.setSalary(data.getSalary());
 		repo.save(existData);
+	}
+
+	@Override
+	public PayrollModel getEmpByDept(String dept) {
+		return repo.findByDeprtment(dept).get();
 	}
 
 }

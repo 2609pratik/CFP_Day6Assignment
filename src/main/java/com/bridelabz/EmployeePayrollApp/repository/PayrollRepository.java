@@ -11,7 +11,7 @@ import com.bridelabz.EmployeePayrollApp.entity.PayrollModel;
 @Repository
 public interface PayrollRepository extends JpaRepository<PayrollModel, Integer> {
 
-	@Query(value = "Select * from payroll_model WHERE department=dept",nativeQuery = true)
+	@Query(value = "Select * from payroll_model,payroll_department WHERE id=id and department=dept",nativeQuery = true)
 	Optional<PayrollModel> findByDeprtment(String dept);
 
 	

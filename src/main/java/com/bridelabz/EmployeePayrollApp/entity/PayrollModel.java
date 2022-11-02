@@ -1,6 +1,7 @@
 package com.bridelabz.EmployeePayrollApp.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -25,15 +26,20 @@ public class PayrollModel {
 	private int id;
 	private String profilePic;
 	private String gender;
-//	private String department;
+//	@OneToMany
+//	private List<String> department;
 	private long salary;
 	private LocalDate startDate = LocalDate.now();
 	private String note;
 	
 @ElementCollection
-@CollectionTable(name = "payroll_department" , joinColumns = @JoinColumn(name= "id"))
+	//@OneToMany
+	//@ManyToMany
+	//@ManyToOne
+@CollectionTable(name = "payroll_department" , joinColumns = @JoinColumn(name= "empId"))
 @Column(name = "department")
-private String department;
+//	@OneToMany
+private List<String> department;
 	
 	public PayrollModel(PayrollDTO data) {
 		this.id=getId();
